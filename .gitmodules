@@ -1,0 +1,6 @@
+[submodule "ThirdParty/shaderc"]
+	path = ThirdParty/shaderc
+	url = https://github.com/MadLadSquad/shaderc.git
+[submodule "ThirdParty/spirv-cross"]
+	path = ThirdParty/spirv-cross
+	url = https://github.com/MadLadSquad/SPIRV-Cross.git
