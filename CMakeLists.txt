@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(ThirdParty/shaderc/libshaderc/include/)
 include_directories(ThirdParty/spirv-cross/include)
 add_subdirectory(ThirdParty/shaderc/)
-add_subdirectory(ThirdParty/spirv-cross/include)
+add_subdirectory(ThirdParty/spirv-cross/)
 
 file(GLOB_RECURSE SRC "Src/*.hpp" "Src/*.h" "Src/*.cpp")
 
