@@ -15,7 +15,7 @@
 #else
     #error "Compiling against MinGW is not supported!"
 #endif
-#include <openssl/sha.h>
+#include "../ThirdParty/Crypto/sha256.hpp"
 
 namespace USC
 {
@@ -106,13 +106,8 @@ void USC::checkForCompile()
             std::vector<char> buffer(size);
             if (istream.read(buffer.data(), size))
             {
-                unsigned char result[SHA256_DIGEST_LENGTH];
-                SHA256(reinterpret_cast<unsigned char*>(buffer.data()), buffer.size(), result);
-
-                std::stringstream ss;
-                ss << std::hex;
-                for (auto& f : result)
-                    ss << static_cast<int>(f);
+                std::string str;
+                picosha2::hash256_hex_string(buffer, str);
 
                 bool bFound = false;
                 for (auto& f : std_filesystem::recursive_directory_iterator(prefixDir + "Generated/"))
@@ -122,7 +117,7 @@ void USC::checkForCompile()
                         auto filename = f.path().filename().string();
                         filename.erase(filename.size() - 4);
 
-                        if (filename == ss.str())
+                        if (filename == str)
                         {
                             bFound = true;
                             goto exit_loop;
@@ -157,17 +152,12 @@ void USC::recompileShaders()
             std::vector<char> buffer(size);
             if (istream.read(buffer.data(), size))
             {
-                unsigned char result[SHA256_DIGEST_LENGTH];
-                SHA256(reinterpret_cast<unsigned char*>(buffer.data()), buffer.size(), result);
-
-                std::stringstream ss;
-                ss << std::hex;
-                for (auto& f : result)
-                    ss << static_cast<int>(f);
+                std::string str;
+                picosha2::hash256_hex_string(buffer, str);
 
                 auto tmp = a.path().string();
                 tmp.erase(0, strlen((prefixDir + "Content/").c_str()));
-                compileShader(tmp, ss.str());
+                compileShader(tmp, str);
             }
         }
     }

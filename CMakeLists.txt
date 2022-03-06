@@ -9,11 +9,11 @@ add_subdirectory(ThirdParty/shaderc/)
 add_subdirectory(ThirdParty/spirv-cross/)
 
 file(GLOB_RECURSE SRC "Src/*.cpp")
-file(GLOB_RECURSE HEAD "Src/*hpp")
+file(GLOB_RECURSE HEAD "Src/*hpp" "ThirdParty/Crypto/sha256.hpp")
 
 add_library(UVKShaderCompilerLib SHARED ${SRC} ${HEAD})
 add_executable(UVKShaderCompiler main.cpp ${HEAD})
 
 target_compile_definitions(UVKShaderCompilerLib PRIVATE "USC_LIB_COMPILE")
-target_link_libraries(UVKShaderCompilerLib shaderc glslang SPIRV-Tools SPIRV-Tools-opt SPIRV OGLCompiler OSDependent spirv-cross-cpp crypto)
+target_link_libraries(UVKShaderCompilerLib shaderc glslang SPIRV-Tools SPIRV-Tools-opt SPIRV OGLCompiler OSDependent spirv-cross-cpp)
 target_link_libraries(UVKShaderCompiler UVKShaderCompilerLib)
