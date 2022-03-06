@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
-project(UVKShaderCompiler)
 project(UVKShaderCompilerLib)
+project(UVKShaderCompiler)
 
 set(CMAKE_CXX_STANDARD 17)
 include_directories(ThirdParty/shaderc/libshaderc/include/)
