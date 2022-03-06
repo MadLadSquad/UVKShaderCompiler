@@ -16,8 +16,5 @@
 namespace USC
 {
     inline std::string prefixDir = "../../";
-    USC_PUBLIC_API static void setPrefixDir(const char* pt = "../../")
-    {
-        prefixDir = pt;
-    }
+    USC_PUBLIC_API void setPrefixDir(const char* pt = "../../");
 }

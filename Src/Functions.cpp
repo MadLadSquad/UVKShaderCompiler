@@ -21,6 +21,12 @@ namespace USC
 {
     void init(std::string& filename, const std::string& shaderLoc, shaderc_shader_kind& shaderType);
 }
+
+void USC::setPrefixDir(const char *pt)
+{
+    prefixDir = pt;
+}
+
 void USC::init(std::string& filename, const std::string& shaderLoc, shaderc_shader_kind& shaderType)
 {
     if (filename.find_last_of('/') != std::string::npos)
