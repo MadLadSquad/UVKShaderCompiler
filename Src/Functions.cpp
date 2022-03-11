@@ -99,16 +99,9 @@ void USC::checkForCompile()
     {
         if (!a.is_directory() && (a.path().extension() == ".vert" || a.path().extension() == ".frag" || a.path().extension() == ".comp" || a.path().extension() == ".geom" || a.path().extension() == ".tesc" || a.path().extension() == ".tese"))
         {
-            std::ifstream istream(a.path(), std::ios::ate);
-            std::streamsize size = istream.tellg();
-            istream.seekg(0, std::ios::beg);
-
-            std::vector<char> buffer(size);
-            if (istream.read(buffer.data(), size))
+            auto hash = getShaderHash(a.path().string().c_str());
+            if (!hash.empty())
             {
-                std::string str;
-                picosha2::hash256_hex_string(buffer, str);
-
                 bool bFound = false;
                 for (auto& f : std_filesystem::recursive_directory_iterator(prefixDir + "Generated/"))
                 {
@@ -117,7 +110,7 @@ void USC::checkForCompile()
                         auto filename = f.path().filename().string();
                         filename.erase(filename.size() - 4);
 
-                        if (filename == str)
+                        if (filename == hash)
                         {
                             bFound = true;
                             goto exit_loop;
@@ -145,20 +138,30 @@ void USC::recompileShaders()
     {
         if (!a.is_directory() && (a.path().extension() == ".vert" || a.path().extension() == ".frag" || a.path().extension() == ".comp" || a.path().extension() == ".geom" || a.path().extension() == ".tesc" || a.path().extension() == ".tese"))
         {
-            std::ifstream istream(a.path(), std::ios::ate);
-            std::streamsize size = istream.tellg();
-            istream.seekg(0, std::ios::beg);
-
-            std::vector<char> buffer(size);
-            if (istream.read(buffer.data(), size))
+            auto hash = getShaderHash(a.path().string().c_str());
+            if (!hash.empty())
             {
-                std::string str;
-                picosha2::hash256_hex_string(buffer, str);
-
                 auto tmp = a.path().string();
                 tmp.erase(0, strlen((prefixDir + "Content/").c_str()));
-                compileShader(tmp, str);
+                compileShader(tmp, hash);
             }
         }
     }
+}
+
+std::string USC::getShaderHash(const char* loc)
+{
+    std::ifstream istream(loc, std::ios::ate);
+    std::streamsize size = istream.tellg();
+    istream.seekg(0, std::ios::beg);
+
+    std::vector<char> buffer(size);
+    if (istream.read(buffer.data(), size))
+    {
+        std::string str;
+        picosha2::hash256_hex_string(buffer, str);
+        return str;
+    }
+    std::string str{};
+    return str;
 }

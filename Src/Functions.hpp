@@ -11,4 +11,6 @@ namespace USC
     USC_PUBLIC_API void showHelpMessage();
 
     USC_PUBLIC_API void compileShader(const std::string& arg, const std::string& hash);
+
+    USC_PUBLIC_API std::string getShaderHash(const char* loc);
 }
