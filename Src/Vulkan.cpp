@@ -8,7 +8,7 @@ std::vector<uint32_t> USC::generateVulkanBinaries(const std::string& loc, const 
     shaderc::Compiler compiler;
     shaderc::CompileOptions options;
 
-    options.SetTargetEnvironment(shaderc_target_env_vulkan, shaderc_env_version_vulkan_1_3);
+    options.SetTargetEnvironment(shaderc_target_env_vulkan, shaderc_env_version_vulkan_1_2);
     options.SetOptimizationLevel(shaderc_optimization_level_performance);
 
     std::string buffer;
