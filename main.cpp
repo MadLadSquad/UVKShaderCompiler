@@ -2,9 +2,9 @@
 
 int main(int argc, char** argv)
 {
-    if (argc > 1)
+    if (argc > 2)
     {
-        USC::setPrefixDir("../../");
+        USC::setPrefixDir(argv[2]);
         if (std::string(argv[1]) == "--help")
             USC::showHelpMessage();
         else if (std::string(argv[1]) == "--complete-regen")

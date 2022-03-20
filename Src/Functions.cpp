@@ -24,7 +24,14 @@ namespace USC
 
 void USC::setPrefixDir(const char *pt)
 {
-    prefixDir = pt;
+    std::string p = pt;
+    if (p.back() != '/')
+        p += "/";
+    // Cleanup if some stupid Windows user decides to use this
+    for (auto& a : p)
+        if (a == '\\')
+            a = '/';
+    prefixDir = p;
 }
 
 void USC::init(std::string& filename, const std::string& shaderLoc, shaderc_shader_kind& shaderType)
