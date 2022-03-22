@@ -2,6 +2,7 @@
 #include <shaderc/shaderc.hpp>
 #include "../spirv-cross/spirv_cross.hpp"
 #include "../spirv-cross/spirv_glsl.hpp"
+#include "../spirv-cross/spirv_hlsl.hpp"
 
 std::vector<uint32_t> USC::generateVulkanBinaries(const std::string& loc, const std::string& shaderLoc, const std::string& filename, const shaderc_shader_kind& shaderType)
 {
@@ -15,6 +16,7 @@ std::vector<uint32_t> USC::generateVulkanBinaries(const std::string& loc, const 
     std::ifstream in(static_cast<std::string>(std::string(loc) + "Content/" + shaderLoc));
     loadData(buffer, in);
     in.close();
+
     shaderc::SpvCompilationResult result = compiler.CompileGlslToSpv(buffer, shaderType, static_cast<std::string>(std::string(loc) + "Content/" + shaderLoc).c_str(), options);
 
     if (result.GetCompilationStatus() != shaderc_compilation_status_success)

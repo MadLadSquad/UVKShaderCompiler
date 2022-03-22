@@ -4,3 +4,6 @@
 [submodule "ThirdParty/spirv-cross"]
 	path = ThirdParty/spirv-cross
 	url = https://github.com/MadLadSquad/SPIRV-Cross.git
+[submodule "ThirdParty/Crypto/md5"]
+	path = ThirdParty/Crypto/md5
+	url = https://github.com/ulwanski/md5.git

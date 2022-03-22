@@ -2,6 +2,7 @@
 #include "Vulkan.hpp"
 #include <shaderc/shaderc.hpp>
 #include <cstring>
+#include "../ThirdParty/Crypto/md5/md5.h"
 
 // This is for MinGW32 because it is retarded
 #ifndef __MINGW32__
@@ -158,17 +159,5 @@ void USC::recompileShaders()
 
 std::string USC::getShaderHash(const char* loc)
 {
-    std::ifstream istream(loc, std::ios::ate);
-    std::streamsize size = istream.tellg();
-    istream.seekg(0, std::ios::beg);
-
-    std::vector<char> buffer(size);
-    if (istream.read(buffer.data(), size))
-    {
-        std::string str;
-        picosha2::hash256_hex_string(buffer, str);
-        return str;
-    }
-    std::string str{};
-    return str;
+    return md5file(loc);
 }

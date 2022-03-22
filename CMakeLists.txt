@@ -8,8 +8,8 @@ include_directories(ThirdParty/spirv-cross/include)
 add_subdirectory(ThirdParty/shaderc/)
 add_subdirectory(ThirdParty/spirv-cross/)
 
-file(GLOB_RECURSE SRC "Src/*.cpp")
-file(GLOB_RECURSE HEAD "Src/*hpp" "ThirdParty/Crypto/sha256.hpp")
+file(GLOB_RECURSE SRC "Src/*.cpp" "ThirdParty/Crypto/*.cpp")
+file(GLOB_RECURSE HEAD "Src/*hpp" "ThirdParty/Crypto/sha256.hpp" "ThirdParty/Crypto/*.h")
 
 add_library(UVKShaderCompilerLib SHARED ${SRC} ${HEAD})
 add_executable(UVKShaderCompiler main.cpp ${HEAD})
