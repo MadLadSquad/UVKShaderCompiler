@@ -2,7 +2,7 @@
 #include "Vulkan.hpp"
 #include <shaderc/shaderc.hpp>
 #include <cstring>
-#include "../ThirdParty/Crypto/md5/md5.h"
+#include "../ThirdParty/Crypto/md5.h"
 
 // This is for MinGW32 because it is retarded
 #ifndef __MINGW32__
