@@ -1,4 +1,6 @@
 # UVKShaderCompiler
+[![CI](https://github.com/MadLadSquad/UVKShaderCompiler/actions/workflows/ci.yaml/badge.svg)](https://github.com/MadLadSquad/UVKShaderCompiler/actions/workflows/ci.yaml)
+
 > Version 0.1
 
 Shader compiler program for the UntitledVulkanGameEngine
