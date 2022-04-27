@@ -44,7 +44,7 @@ jobs:
     - name: Build
       run: |
         cd ThirdParty/shaderc/utils/ || exit
-        ./git-sync-deps
+        python3 git-sync-deps
         cd ../../../ || exit
         mkdir build && cd build
         cmake .. || exit
