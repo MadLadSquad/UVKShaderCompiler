@@ -1,0 +1,51 @@
+name: CI
+env:
+  BUILD_CONFIGURATION: Release
+on: [push, pull_request]
+jobs:
+  Linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        lfs: true
+    - name: Get dependencies
+      shell: bash
+      run: sudo apt-get install gcc make g++ libtool cmake
+    - name: Checkout submodules
+      shell: bash
+      run: |
+          git submodule sync --recursive
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+    - name: Checkout LFS objects
+      run: git lfs checkout
+    - name: Build
+      run: |
+        cd ThirdParty/shaderc/utils/ || exit
+        ./git-sync-deps
+        cd ../../../ || exit
+        mkdir build && cd build
+        cmake .. || exit
+        make -j "$(grep -c processor /proc/cpuinfo)" || exit
+  Windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        lfs: true
+    - name: Checkout submodules
+      run: |
+          git submodule sync --recursive
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+    - name: Checkout LFS objects
+      run: git lfs checkout
+    - name: Set MSBuild env
+      uses: microsoft/setup-msbuild@v1.1
+    - name: Build
+      run: |
+        cd ThirdParty/shaderc/utils/ || exit
+        ./git-sync-deps
+        cd ../../../ || exit
+        mkdir build && cd build
+        cmake .. || exit
+        MSBuild.exe UVKShaderCompiler.sln -property:Configuration=Release -property:Platform=x64 -property:maxCpuCount="$(grep -c processor /proc/cpuinfo)" || exit
