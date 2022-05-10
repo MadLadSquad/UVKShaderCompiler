@@ -1,8 +1,8 @@
 #include "Vulkan.hpp"
 #include <shaderc/shaderc.hpp>
-#include "../spirv-cross/spirv_cross.hpp"
-#include "../spirv-cross/spirv_glsl.hpp"
-#include "../spirv-cross/spirv_hlsl.hpp"
+//#include "../spirv-cross/spirv_cross.hpp"
+//#include "../spirv-cross/spirv_glsl.hpp"
+//#include "../spirv-cross/spirv_hlsl.hpp"
 
 std::vector<uint32_t> USC::generateVulkanBinaries(const std::string& loc, const std::string& shaderLoc, const std::string& filename, const shaderc_shader_kind& shaderType)
 {
