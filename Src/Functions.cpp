@@ -2,6 +2,7 @@
 #include "Vulkan.hpp"
 #include <shaderc/shaderc.hpp>
 #include <cstring>
+#include <vector>
 #include "../ThirdParty/Crypto/md5.h"
 
 // This is for MinGW32 because it is retarded
@@ -103,6 +104,7 @@ void USC::compileShader(const std::string& arg, const std::string& hash)
 
 void USC::checkForCompile()
 {
+    std::vector<std::string> noErase;
     for (auto& a : std_filesystem::recursive_directory_iterator(prefixDir + "Content/"))
     {
         if (!a.is_directory() && (a.path().extension() == ".vert" || a.path().extension() == ".frag" || a.path().extension() == ".comp" || a.path().extension() == ".geom" || a.path().extension() == ".tesc" || a.path().extension() == ".tese"))
@@ -111,11 +113,12 @@ void USC::checkForCompile()
             if (!hash.empty())
             {
                 bool bFound = false;
+                std::string filename;
                 for (auto& f : std_filesystem::recursive_directory_iterator(prefixDir + "Generated/"))
                 {
                     if (!f.is_directory() && f.path().extension() == ".spv")
                     {
-                        auto filename = f.path().filename().string();
+                        filename = f.path().filename().string();
                         filename.erase(filename.size() - 4);
 
                         if (filename == hash)
@@ -125,15 +128,24 @@ void USC::checkForCompile()
                         }
                     }
                 }
+                noErase.push_back(hash);
 exit_loop:
                 if (!bFound)
                 {
-                    recompileShaders();
+                    auto tmp = a.path().string();
+                    tmp.erase(0, strlen((prefixDir + "Content/").c_str()));
+                    compileShader(tmp, hash);
                     return;
                 }
             }
         }
     }
+
+
+    for (auto& a : std_filesystem::recursive_directory_iterator(prefixDir + "Generated/"))
+        for (auto& f : noErase)
+            if (a.path().filename().string() != (f + ".spv") && a.path().extension() == ".spv") // Check if file doesn't exist and the extension is for SPIR-V
+                std_filesystem::remove_all(a.path());
 }
 
 void USC::recompileShaders()

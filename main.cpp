@@ -1,15 +1,23 @@
 #include "Src/Vulkan.hpp"
 
+std::string toLower(std::string str)
+{
+    for (auto& a : str)
+        a = tolower(a);
+    return str;
+}
+
 int main(int argc, char** argv)
 {
     if (argc > 2)
     {
         USC::setPrefixDir(argv[2]);
-        if (std::string(argv[1]) == "--help")
+
+        if (std::string(argv[1]) == toLower("--help"))
             USC::showHelpMessage();
-        else if (std::string(argv[1]) == "--complete-regen")
+        else if (std::string(argv[1]) == toLower("--complete-regen"))
             USC::recompileShaders();
-        else if (std::string(argv[1]) == "--compile")
+        else if (std::string(argv[1]) == toLower("--compile"))
             USC::checkForCompile();
         else
         {
