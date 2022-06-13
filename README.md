@@ -1,5 +1,5 @@
 # UVKShaderCompiler
-[![CI](https://github.com/MadLadSquad/UVKShaderCompiler/actions/workflows/ci.yaml/badge.svg)](https://github.com/MadLadSquad/UVKShaderCompiler/actions/workflows/ci.yaml)
+[![CI](https://github.com/MadLadSquad/UVKShaderCompiler/actions/workflows/ci.yaml/badge.svg)](https://github.com/MadLadSquad/UVKShaderCompiler/actions/workflows/ci.yaml) 
 
 > Version 0.5
 
