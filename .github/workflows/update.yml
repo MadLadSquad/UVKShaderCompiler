@@ -1,7 +1,7 @@
 name: Update Dependencies
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   schedule:
     - cron: "0 0 * * *"
     - cron: "0 6 * * *"
@@ -14,7 +14,7 @@ jobs:
       - name: checking out code
         uses: actions/checkout@v3
         with:
-          ref: main
+          ref: master
           token: ${{ secrets.GITHUB_TOKEN }}
           lfs: true
           submodules: true
@@ -37,7 +37,7 @@ jobs:
           git config --global user.name "Madman10K"
           git config --global user.email "contact@madladsquad.com"
           git fetch --all
-          git checkout auto || git checkout -b auto
+          git checkout auto || git checkout -b auto master
           echo "::set-output name=out::$(git submodule update --remote --merge)?"
       - name: Commit
         if: "steps.mod.outputs.out != '?'"
