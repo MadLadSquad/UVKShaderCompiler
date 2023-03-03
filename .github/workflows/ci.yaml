@@ -11,7 +11,7 @@ jobs:
         lfs: true
     - name: Get dependencies
       shell: bash
-      run: sudo apt update && sudo apt upgrade && sudo apt-get install gcc make g++ libtool cmake
+      run: sudo apt update && sudo apt-get install gcc make g++ libtool cmake
     - name: Checkout submodules
       shell: bash
       run: |
