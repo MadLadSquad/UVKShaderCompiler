@@ -16,7 +16,7 @@ add_executable(UVKShaderCompiler main.cpp ${HEAD})
 
 target_compile_definitions(UVKShaderCompilerLib PRIVATE "USC_LIB_COMPILE")
 if (WIN32)
-    target_compile_options(UVKSharderCompilerLib PRIVATE "/MT;")
+    target_compile_options(UVKShaderCompilerLib PRIVATE "/MT;")
 endif()
 
 target_link_libraries(UVKShaderCompilerLib shaderc glslang SPIRV-Tools SPIRV-Tools-opt SPIRV )
