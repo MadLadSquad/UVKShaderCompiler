@@ -40,7 +40,7 @@ jobs:
     - name: Checkout LFS objects
       run: git lfs checkout
     - name: Set MSBuild env
-      uses: microsoft/setup-msbuild@v1.3
+      uses: microsoft/setup-msbuild@v2
     - name: Build
       run: |
         cd ThirdParty/shaderc/utils/ || exit
