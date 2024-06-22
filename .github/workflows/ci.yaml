@@ -9,9 +9,6 @@ jobs:
       - uses: actions/checkout@v4
         with:
           lfs: true
-      - name: Get dependencies
-        shell: bash
-        run: brew install cmake spirv-headers spirv-tools
       - name: Checkout submodules
         run: |
           git submodule sync --recursive
