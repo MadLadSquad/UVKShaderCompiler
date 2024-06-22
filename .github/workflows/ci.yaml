@@ -12,7 +12,7 @@ jobs:
       - name: Get dependencies
         shell: bash
         run: brew install cmake spirv-headers spirv-tools
-      - name: Checkout submodules:
+      - name: Checkout submodules
         run: |
           git submodule sync --recursive
           git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
