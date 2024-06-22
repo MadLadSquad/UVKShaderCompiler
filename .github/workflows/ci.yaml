@@ -3,6 +3,27 @@ env:
   BUILD_CONFIGURATION: Release
 on: [push, pull_request]
 jobs:
+  macOs:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Get dependencies
+        shell: bash
+        run: brew install cmake spirv-headers spirv-tools
+      - name: Checkout submodules:
+        run: |
+          git submodule sync --recursive
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+      - name: Build
+        run: |
+          cd ThirdParty/shaderc/utils/ || exit
+          ./git-sync-deps
+          cd ../../../ || exit
+          mkdir build && cd build
+          cmake .. || exit
+          make -j "$(sysctl -n hw.ncpu)"
   Linux:
     runs-on: ubuntu-latest
     steps:
