@@ -3,7 +3,7 @@ env:
   BUILD_CONFIGURATION: Release
 on: [push, pull_request]
 jobs:
-  macOs:
+  macOS:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
