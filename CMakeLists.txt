@@ -8,8 +8,8 @@ include_directories(ThirdParty/shaderc/libshaderc/include/)
 add_subdirectory(ThirdParty/shaderc/)
 set(BUILD_SHARED_LIBS ON)
 
-file(GLOB_RECURSE SRC "Src/*.cpp" "ThirdParty/Crypto/*.cpp")
-file(GLOB_RECURSE HEAD "Src/*hpp" "ThirdParty/Crypto/sha256.hpp" "ThirdParty/Crypto/*.h")
+file(GLOB_RECURSE SRC "src/*.cpp" "ThirdParty/Crypto/*.cpp")
+file(GLOB_RECURSE HEAD "src/*.hpp" "ThirdParty/Crypto/sha256.hpp" "ThirdParty/Crypto/*.h")
 
 add_library(UVKShaderCompilerLib SHARED ${SRC} ${HEAD})
 add_executable(UVKShaderCompiler main.cpp ${HEAD})
