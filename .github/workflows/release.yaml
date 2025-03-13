@@ -26,7 +26,7 @@ jobs:
           tag="${{ github.ref_name }}"
           echo "out=uvk-shader-compiler-${tag:1}" >> $GITHUB_OUTPUT
 
-          cd ThirdParty/shaderc/util && ./git-sync-deps && cd ../../../
+          cd ThirdParty/shaderc/utils && ./git-sync-deps && cd ../../../
       - name: Create archive
         shell: bash
         run: |
