@@ -60,6 +60,7 @@ jobs:
     - name: Set MSBuild env
       uses: microsoft/setup-msbuild@v3
     - name: Build
+      shell: bash
       run: |
         cd ThirdParty/shaderc/utils/ || exit
         python3 git-sync-deps
