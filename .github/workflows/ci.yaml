@@ -66,4 +66,4 @@ jobs:
         cd ../../../ || exit
         mkdir build && cd build
         cmake .. || exit
-        MSBuild.exe UVKShaderCompiler.sln -property:Configuration=Release -property:Platform=x64 -property:maxCpuCount="$(grep -c processor /proc/cpuinfo)" || exit
+        MSBuild.exe UVKShaderCompiler.sln* -property:Configuration=Release -property:Platform=x64 -property:maxCpuCount="$(grep -c processor /proc/cpuinfo)" || exit
